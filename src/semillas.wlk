@@ -12,12 +12,13 @@ class Planta {
 	method espacioQueOcupa() = 0
 	
 	method esParcelaIdeal(unaParcela) = true
-	
 }
 
 class Menta inherits Planta {
 	
-	const alturaMinima = 0.2
+	const alturaMinima = 0.4
+	
+	override method horasDeSol() = 6
 	
 	override method daNuevasSemillas() = altura > alturaMinima
 	
@@ -39,7 +40,7 @@ class Soja inherits Planta {
 
 class Quinoa inherits Planta {
 	
-	var horasDeSol = 0
+	var property horasDeSol = 0
 	
 	override method horasDeSol() = horasDeSol
 	
@@ -59,7 +60,7 @@ class SojaTrangenica inherits Soja {
 
 class HierbaBuena inherits Menta {
 	
-	override method espacioQueOcupa() = self.espacioQueOcupa() * 2
+	override method espacioQueOcupa() = super() * 2
 }
 
 
