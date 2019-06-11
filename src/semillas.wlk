@@ -40,3 +40,28 @@ class Quinoa inherits Planta {
 	
 	override method daNuevasSemillas() = (anioDeObtencion < 2005) or (self.horasDeSol() == 12 and anioDeObtencion == 2010) or (self.horasDeSol() == 9 and anioDeObtencion == 2001)
 }
+
+class SojaTrangenica inherits Soja {
+	
+	override method daNuevasSemillas() = false
+}
+
+class HierbaBuena inherits Menta {
+	override method espacioQueOcupa() = self.espacioQueOcupa() * 2
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
