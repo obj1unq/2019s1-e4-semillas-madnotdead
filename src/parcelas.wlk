@@ -2,7 +2,7 @@ class Parcela {
 	
 	var property ancho = 0
 	var property largo = 0
-	var horasDeDia = 0
+	var property horasDeDia = 0
 	var plantasQueTiene = []
 	
 	method superficie() = ancho * largo
@@ -17,22 +17,20 @@ class Parcela {
 		
 		plantasQueTiene.add(planta)
 		
-		self.verificarCondicionParcela()
+		self.verificarCondicionParcela(planta)
 	}
 	
-	method verificarCondicionParcela() {
+	method verificarCondicionParcela(unaPlanta) {
 		
 		if (plantasQueTiene.size() > self.cantidadMaxima()) 
 			self.error("Se excedio la cantidad maxima de plantas.")
 			
-		if(self.superoHorasDeSol())
+		if(self.superoHorasDeSol(unaPlanta))
 			self.error("Se excedio la cantidad de horas de sol.")
 	}
 	
-	method superoHorasDeSol() = self.cantidadHorasDiaDePlantas() - self.horasDeSol() > 2
-	
-	method cantidadHorasDiaDePlantas() = plantasQueTiene.sum( {planta => planta.horasDeSol()})
-	
+	method superoHorasDeSol(unaPlanta) = self.horasDeSol() - unaPlanta.horasDeSol() > 2
+		
 	method tienePlantasMayoresA(unaAltura) = plantasQueTiene.any( { plant => plant.altura() > unaAltura } )
 	
 	method cantidadDePlantasEnParcela() = plantasQueTiene.size()
