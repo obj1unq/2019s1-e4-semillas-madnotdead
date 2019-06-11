@@ -39,4 +39,39 @@ describe "Test de parcelas"{
 	   		{ parcelaPequena.plantarPlanta(new Quinoa(anioDeObtencion = 2000, altura = 0.5, horasDeSol = 4))}
 	   	)
 	}
+	
+	test "parcela ideal para menta y hierbabuena" {
+		var parcelaIdeal = new Parcela(ancho = 4, largo = 4, horasDeDia = 4)
+		var menta = new Menta(altura = 1.0, anioDeObtencion = 2001)
+		var hierbaBuena = new Menta(altura = 1.0, anioDeObtencion = 2001)
+		
+		assert.equals(menta.esParcelaIdeal(parcelaIdeal), hierbaBuena.esParcelaIdeal(parcelaIdeal))
+		assert.that(parcelaIdeal.superficie() > 6)
+	}
+	
+	test "quinoa parcela ideal con planta de altura menor a 1.5 mts" {
+		var parcelaIdeal = new Parcela(ancho = 4, largo = 4, horasDeDia = 4)
+		parcelaIdeal.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		var quinoa = new Quinoa(altura =1.0, anioDeObtencion = 2001, horasDeSol = 12)
+		assert.equals(quinoa.esParcelaIdeal(parcelaIdeal))
+	}
+	
+	test "quinoa parcela no ideal con planta de altura mayor a 1.5 mts" {
+		var parcelaIdeal = new Parcela(ancho = 4, largo = 4, horasDeDia = 4)
+		parcelaIdeal.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 2))//p
+		var quinoa = new Quinoa(altura =1.0, anioDeObtencion = 2001, horasDeSol = 12)
+		assert.notThat(quinoa.esParcelaIdeal(parcelaIdeal))
+	}
+	
+	test "soja comun parcela ideal" {
+		var parcelaIdeal = new Parcela(ancho = 5, largo = 1, horasDeDia = 9)
+		var soja = new Soja(anioDeObtencion = 2000, altura = 1)
+		assert.that(soja.esParcelaIdeal(parcelaIdeal))
+	}
+	
+	test "soja trangenica parcela ideal" {
+		var parcelaIdeal = new Parcela(ancho = 5, largo = 1, horasDeDia = 4)
+		var trangenica = new SojaTrangenica(anioDeObtencion = 2000, altura = 2)
+		assert.that(trangenica.esParcelaIdeal(parcelaIdeal))
+	}
 }

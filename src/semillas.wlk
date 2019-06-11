@@ -55,7 +55,7 @@ class SojaTrangenica inherits Soja {
 	
 	override method daNuevasSemillas() = false
 	
-	override method esParcelaIdeal(unaParcela)  = not unaParcela.cantidadMaxima() == 1
+	override method esParcelaIdeal(unaParcela)  = unaParcela.cantidadMaxima() == 1
 }
 
 class HierbaBuena inherits Menta {
