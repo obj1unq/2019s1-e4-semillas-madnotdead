@@ -1,0 +1,58 @@
+import semillas.*
+
+describe "Test de semillas" {
+	
+	var menta
+	var soja
+	var quinoa
+	
+	fixture {
+		 menta = new Menta(altura = 1.0, anioDeObtencion = 2001)
+		 soja = new Soja(altura = 0.6, anioDeObtencion = 2009)
+		 quinoa = new Quinoa(altura =1.0, anioDeObtencion = 2001, horasDeSol = 12)
+	}
+	
+	test "menta de 1 metro, da semillas y ocupa 3 metros cuadrados" {
+		assert.that(menta.daNuevasSemillas() and menta.espacioQueOcupa() == 3)
+	}
+	
+	test "una menta de solo 0.3 metros, no da semillas y ocupa 0.9 m2 de espacio." {
+		menta.altura(0.3)
+		assert.that(not menta.daNuevasSemillas() and menta.espacioQueOcupa() == 0.9)
+	}
+	
+	test "menta nunca es fuerte, no importa el tamaño" {
+		menta.altura(0.2)
+		assert.notThat(menta.esFuerte())
+		menta.altura(1.3)
+		assert.notThat(menta.esFuerte())
+		menta.altura(2.6)
+		assert.notThat(menta.esFuerte())
+		menta.altura(3.9)
+		assert.notThat(menta.esFuerte())
+	}
+	
+	test "soja con tolerancia al sol de 7 horas, no da semillas y ocupa 0,3 m2 de espacio" {
+		assert.that(soja.horasDeSol() == 7 and not soja.daNuevasSemillas() and soja.espacioQueOcupa() == 0.3)
+	}
+		
+	test "quinoa 2001 da semillas" {
+		assert.that(quinoa.daNuevasSemillas())
+	}
+	
+	test "quinoa 2010 con 12 horas de sol da semillas" {
+		var unaQuinoa = new Quinoa(altura = 1.0, anioDeObtencion = 2010, horasDeSol =12)
+		assert.that(unaQuinoa.daNuevasSemillas())
+	}
+	
+	test "soja trangenica nunca da semillas" {
+		var sojaTrangenica = new SojaTrangenica(altura= 1.5, anioDeObtencion = 2008) //condiciones para que soja comun de semillas
+		assert.notThat(sojaTrangenica.daNuevasSemillas())
+	}
+	
+	test "hierba buena ocupa el doble que menta" {
+		var mentaNormail = new Menta(altura = 1.0, anioDeObtencion = 2001)
+		var hierbaBuena = new HierbaBuena(altura = 1.0, anioDeObtencion = 2001)
+		assert.equals(hierbaBuena.espacioQueOcupa(), mentaNormail.espacioQueOcupa() * 2)
+	}
+} 
