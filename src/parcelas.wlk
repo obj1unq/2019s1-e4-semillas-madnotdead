@@ -32,4 +32,6 @@ class Parcela {
 	method superoHorasDeSol() = self.cantidadHorasDiaDePlantas() - self.horasDeSol() > 2
 	
 	method cantidadHorasDiaDePlantas() = plantasQueTiene.sum( {planta => planta.horasDeSol()})
+	
+	method tienePlantasMayoresA(unaAltura) = plantasQueTiene.any( { plant => plant.altura() > unaAltura } )
 }

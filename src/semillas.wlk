@@ -1,4 +1,5 @@
 class Planta {
+	
 	var property anioDeObtencion
 	var property altura
 	
@@ -10,6 +11,8 @@ class Planta {
 	
 	method espacioQueOcupa() = 0
 	
+	method esParcelaIdeal(unaParcela) = true
+	
 }
 
 class Menta inherits Planta {
@@ -19,6 +22,8 @@ class Menta inherits Planta {
 	override method daNuevasSemillas() = altura > alturaMinima
 	
 	override method espacioQueOcupa() = altura * 3
+	
+	override method esParcelaIdeal(unaParcela)  = unaParcela.superficie() > 6
 }
 
 class Soja inherits Planta {
@@ -28,6 +33,8 @@ class Soja inherits Planta {
 	override method daNuevasSemillas() = anioDeObtencion >= 2007 and altura > 1.0
 	
 	override method espacioQueOcupa() = altura / 2
+	
+	override method esParcelaIdeal(unaParcela)  = unaParcela.horasDeSol() == self.horasDeSol()
 }
 
 class Quinoa inherits Planta {
@@ -39,14 +46,19 @@ class Quinoa inherits Planta {
 	override method espacioQueOcupa() = 0.5
 	
 	override method daNuevasSemillas() = (anioDeObtencion < 2005) or (self.horasDeSol() == 12 and anioDeObtencion == 2010) or (self.horasDeSol() == 9 and anioDeObtencion == 2001)
+	
+	override method esParcelaIdeal(unaParcela)  = not unaParcela.tienePlantasMayoresA(1.5)
 }
 
 class SojaTrangenica inherits Soja {
 	
 	override method daNuevasSemillas() = false
+	
+	override method esParcelaIdeal(unaParcela)  = not unaParcela.cantidadMaxima() == 1
 }
 
 class HierbaBuena inherits Menta {
+	
 	override method espacioQueOcupa() = self.espacioQueOcupa() * 2
 }
 
