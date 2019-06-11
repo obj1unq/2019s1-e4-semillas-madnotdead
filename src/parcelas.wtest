@@ -1,0 +1,42 @@
+import parcelas.*
+import semillas.*
+
+describe "Test de parcelas"{
+	var parcela 
+	fixture {
+		parcela = new Parcela(ancho = 20, largo = 1, horasDeDia = 8)
+		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+	}
+	
+	test "Una parcela de 20 mts. de ancho por 1 mt. de largo que recibe 8 horas de sol por día,
+		 tiene una superficie de 20 m2 y la cantidad máxima de plantas que tolera es de 4." {
+		
+		assert.that(parcela.cantidadMaxima() == 4 and parcela.superficie() == 20)
+	}
+	
+	test "parcela con cuatro plantas no tiene complicaciones" {
+		assert.notThat(parcela.tieneComplicaciones())
+	}
+	
+	test "cantidad de plantas igual a capacidad de parcela" {
+		assert.equals(parcela.cantidadDePlantasEnParcela(), parcela.cantidadMaxima())
+	}
+	
+	test "agrego una quinta planta a la parcela con capacidad maxima de cuatro, se mostrar un error" {
+		
+	   	assert.throwsExceptionWithMessage("Se excedio la cantidad maxima de plantas.", 
+	   		{ parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 0.5))}
+	   	)
+	}
+	
+	test "agrego una quinta planta a la parcela c on capacidad maxima de cuatro, se mostrar un error" {
+		var	parcelaPequena = new Parcela(ancho = 20, largo = 1, horasDeDia = 8)
+		
+	   	assert.throwsExceptionWithMessage("Se excedio la cantidad de horas de sol.", 
+	   		{ parcelaPequena.plantarPlanta(new Quinoa(anioDeObtencion = 2000, altura = 0.5, horasDeSol = 4))}
+	   	)
+	}
+}
