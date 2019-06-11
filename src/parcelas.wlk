@@ -34,4 +34,33 @@ class Parcela {
 	method cantidadHorasDiaDePlantas() = plantasQueTiene.sum( {planta => planta.horasDeSol()})
 	
 	method tienePlantasMayoresA(unaAltura) = plantasQueTiene.any( { plant => plant.altura() > unaAltura } )
+	
+	method cantidadDePlantasEnParcela() = plantasQueTiene.size()
+	
+	method seAsociaBien(planta) = true
+	
+	method porcentajeDeAsociacion() = self.cantidadDePlantasAsociadasEnParcela() / self.cantidadDePlantasEnParcela()
+	
+	method cantidadDePlantasAsociadasEnParcela() = plantasQueTiene.filter({ planta => self.seAsociaBien(planta) }).size()
 }
+
+class ParcelaEcologica inherits Parcela {
+	
+	override method seAsociaBien(planta) = not self.tieneComplicaciones() and  planta.esParcelaIdeal(self)
+}
+
+class ParcelaIndustrial inherits Parcela {
+	
+	override method seAsociaBien(planta) = self.cantidadDePlantasEnParcela() < 2 and planta.esFuerte()
+}
+
+
+
+
+
+
+
+
+
+
+
