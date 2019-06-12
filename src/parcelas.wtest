@@ -2,8 +2,10 @@ import parcelas.*
 import semillas.*
 
 describe "Test de parcelas"{
+	
 	var parcela 
 	var parcelaEcologica
+	
 	fixture {
 		parcela = new Parcela(ancho = 20, largo = 1, horasDeDia = 8)
 		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
@@ -12,6 +14,7 @@ describe "Test de parcelas"{
 		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
 		
 		
+		//Test de parcela Ecologica similar a Industruial
 		parcelaEcologica = new ParcelaEcologica(ancho = 20, largo = 1, horasDeDia = 6)
 		parcelaEcologica.plantarPlanta(new Menta(anioDeObtencion = 2000, altura = 1))
 		parcelaEcologica.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
