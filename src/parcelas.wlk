@@ -37,9 +37,10 @@ class Parcela {
 	
 	method seAsociaBien(planta) = true
 	
-	method porcentajeDeAsociacion() = self.cantidadDePlantasAsociadasEnParcela() / self.cantidadDePlantasEnParcela()
 	
-	method cantidadDePlantasAsociadasEnParcela() = plantasQueTiene.filter({ planta => self.seAsociaBien(planta) }).size()
+	method porcentajeDeAsociacion() = (self.cantidadDePlantasAsociadasEnParcela() / self.cantidadDePlantasEnParcela()) * 100
+	
+	method cantidadDePlantasAsociadasEnParcela() = plantasQueTiene.filter{ planta => self.seAsociaBien(planta) }.size()
 }
 
 class ParcelaEcologica inherits Parcela {
