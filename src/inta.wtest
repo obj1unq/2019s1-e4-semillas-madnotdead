@@ -46,7 +46,7 @@ describe "Teste de INTA" {
 	}
 	
 	test "Estadistica INTA: Promedio de plantas por parcela es igual a 4 (numeros enteros)" {
-		assert.that(inta.promedioDePlantas() == 4)
+		assert.that(inta.promedioDePlantasPorParcela() == 4)
 	}
 	
 	test "Estadistica INTA: Parcela mas sustentable" {

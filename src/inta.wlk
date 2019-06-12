@@ -8,7 +8,7 @@ object inta {
 	
 	method cantidadDePlantasTotalesEnParcelas() = parcelas.sum({ parcela => parcela.cantidadDePlantasEnParcela()})
 	
-	method promedioDePlantas() = self.cantidadDePlantasTotalesEnParcelas().div(parcelas.size())
+	method promedioDePlantasPorParcela() = self.cantidadDePlantasTotalesEnParcelas().div(parcelas.size())
 	
 	method parcelaMasSustentable() = parcelas
 										.filter({parcela => parcela.cantidadDePlantasEnParcela() >= 4})
