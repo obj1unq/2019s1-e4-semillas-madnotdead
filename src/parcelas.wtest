@@ -3,12 +3,21 @@ import semillas.*
 
 describe "Test de parcelas"{
 	var parcela 
+	var parcelaEcologica
 	fixture {
 		parcela = new Parcela(ancho = 20, largo = 1, horasDeDia = 8)
 		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
 		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
 		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
 		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		
+		
+		parcelaEcologica = new ParcelaEcologica(ancho = 20, largo = 1, horasDeDia = 6)
+		parcelaEcologica.plantarPlanta(new Menta(anioDeObtencion = 2000, altura = 1))
+		parcelaEcologica.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcelaEcologica.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcelaEcologica.plantarPlanta(new Menta(anioDeObtencion = 2000, altura = 1))
+		
 	}
 	
 	test "Una parcela de 20 mts. de ancho por 1 mt. de largo que recibe 8 horas de sol por día,
@@ -74,4 +83,12 @@ describe "Test de parcelas"{
 		var trangenica = new SojaTrangenica(anioDeObtencion = 2000, altura = 2)
 		assert.that(trangenica.esParcelaIdeal(parcelaIdeal))
 	}
+	
+	test "parcela ecologica, cantidad de plantas asociadas" {	
+		assert.that(parcelaEcologica.cantidadDePlantasAsociadasEnParcela() == 2) 
+	} 
+	
+	test "parcela ecologica, porcentaje de asociacion del 50%" {	
+		assert.that(parcelaEcologica.porcentajeDeAsociacion() == 50) 
+	} 
 }
