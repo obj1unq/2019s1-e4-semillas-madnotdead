@@ -1,0 +1,57 @@
+import parcelas.*
+import semillas.*
+import inta.*
+
+describe "Teste de INTA" {
+	var parcelaEco1
+	var parcelaEco2
+	var parcelaInd1
+	var parcelaInd2
+	
+	fixture {
+		parcelaEco1 = new ParcelaEcologica(ancho = 20, largo = 1, horasDeDia = 8)
+		parcelaEco1.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcelaEco1.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcelaEco1.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		
+		parcelaEco2 = new ParcelaEcologica(ancho = 40, largo = 2, horasDeDia = 6)
+		parcelaEco2.plantarPlanta(new Menta(anioDeObtencion = 2000, altura = 1))
+		parcelaEco2.plantarPlanta(new Quinoa(anioDeObtencion = 2000, altura = 1, horasDeSol = 6))
+		parcelaEco2.plantarPlanta(new HierbaBuena(anioDeObtencion = 2000, altura = 1))
+		parcelaEco2.plantarPlanta(new HierbaBuena(anioDeObtencion = 2000, altura = 1))
+		parcelaEco2.plantarPlanta(new HierbaBuena(anioDeObtencion = 2000, altura = 1))
+
+		
+		parcelaInd1 = new ParcelaEcologica(ancho = 10, largo = 10, horasDeDia = 5)
+		parcelaInd1.plantarPlanta(new SojaTrangenica(anioDeObtencion = 2000, altura = 1))
+		parcelaInd1.plantarPlanta(new Menta(anioDeObtencion = 2000, altura = 1))
+		parcelaInd1.plantarPlanta(new Menta(anioDeObtencion = 2000, altura = 1))
+		parcelaInd1.plantarPlanta(new Menta(anioDeObtencion = 2000, altura = 1))
+		parcelaInd1.plantarPlanta(new Menta(anioDeObtencion = 2000, altura = 1))
+		parcelaInd1.plantarPlanta(new Menta(anioDeObtencion = 2000, altura = 1))
+		
+		
+		parcelaInd2 = new ParcelaIndustrial(ancho = 4, largo = 4, horasDeDia = 8)
+		parcelaInd2.plantarPlanta(new HierbaBuena(anioDeObtencion = 2000, altura = 1))
+		parcelaInd2.plantarPlanta(new Quinoa(anioDeObtencion = 2000, altura = 1, horasDeSol = 6))
+		parcelaInd2.plantarPlanta(new SojaTrangenica(anioDeObtencion = 2000, altura = 1))
+		parcelaInd2.plantarPlanta(new SojaTrangenica(anioDeObtencion = 2000, altura = 1))
+		parcelaInd2.plantarPlanta(new SojaTrangenica(anioDeObtencion = 2000, altura = 1))
+
+		
+		inta.agregarParcela(parcelaEco1)
+		inta.agregarParcela(parcelaEco2)
+		inta.agregarParcela(parcelaInd1)
+		inta.agregarParcela(parcelaInd2)
+	}
+	
+	test "Estadistica INTA: Promedio de plantas por parcela es igual a 4 (numeros enteros)" {
+		assert.that(inta.promedioDePlantasPorParcela() == 4)
+	}
+	
+	test "Estadistica INTA: Parcela mas sustentable" {
+		assert.equals(inta.parcelaMasSustentable(), parcelaEco2)
+	}
+	
+	
+}

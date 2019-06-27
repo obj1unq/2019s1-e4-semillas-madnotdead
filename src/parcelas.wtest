@@ -1,0 +1,97 @@
+import parcelas.*
+import semillas.*
+
+describe "Test de parcelas"{
+	
+	var parcela 
+	var parcelaEcologica
+	
+	fixture {
+		parcela = new Parcela(ancho = 20, largo = 1, horasDeDia = 8)
+		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		
+		
+		//Test de parcela Ecologica similar a Industruial
+		parcelaEcologica = new ParcelaEcologica(ancho = 20, largo = 1, horasDeDia = 6)
+		parcelaEcologica.plantarPlanta(new Menta(anioDeObtencion = 2000, altura = 1))
+		parcelaEcologica.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcelaEcologica.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		parcelaEcologica.plantarPlanta(new Menta(anioDeObtencion = 2000, altura = 1))
+		
+	}
+	
+	test "Una parcela de 20 mts. de ancho por 1 mt. de largo que recibe 8 horas de sol por día,
+		 tiene una superficie de 20 m2 y la cantidad máxima de plantas que tolera es de 4." {
+		
+		assert.that(parcela.cantidadMaxima() == 4 and parcela.superficie() == 20)
+	}
+	
+	test "parcela con cuatro plantas no tiene complicaciones" {
+		assert.notThat(parcela.tieneComplicaciones())
+	}
+	
+	test "cantidad de plantas igual a capacidad de parcela" {
+		assert.equals(parcela.cantidadDePlantasEnParcela(), parcela.cantidadMaxima())
+	}
+	
+	test "agrego una quinta planta a la parcela con capacidad maxima de cuatro, se mostrar un error" {
+		
+	   	assert.throwsExceptionWithMessage("Se excedio la cantidad maxima de plantas.", 
+	   		{ parcela.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 0.5))}
+	   	)
+	}
+	
+	test "agrego una quinta planta a la parcela c on capacidad maxima de cuatro, se mostrar un error" {
+		var	parcelaPequena = new Parcela(ancho = 20, largo = 1, horasDeDia = 8)
+		
+	   	assert.throwsExceptionWithMessage("Se excedio la cantidad de horas de sol.", 
+	   		{ parcelaPequena.plantarPlanta(new Quinoa(anioDeObtencion = 2000, altura = 0.5, horasDeSol = 4))}
+	   	)
+	}
+	
+	test "parcela ideal para menta y hierbabuena" {
+		var parcelaIdeal = new Parcela(ancho = 4, largo = 4, horasDeDia = 4)
+		var menta = new Menta(altura = 1.0, anioDeObtencion = 2001)
+		var hierbaBuena = new Menta(altura = 1.0, anioDeObtencion = 2001)
+		
+		assert.equals(menta.esParcelaIdeal(parcelaIdeal), hierbaBuena.esParcelaIdeal(parcelaIdeal))
+		assert.that(parcelaIdeal.superficie() > 6)
+	}
+	
+	test "quinoa parcela ideal con planta de altura menor a 1.5 mts" {
+		var parcelaIdeal = new Parcela(ancho = 4, largo = 4, horasDeDia = 4)
+		parcelaIdeal.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 1))
+		var quinoa = new Quinoa(altura =1.0, anioDeObtencion = 2001, horasDeSol = 12)
+		assert.equals(quinoa.esParcelaIdeal(parcelaIdeal))
+	}
+	
+	test "quinoa parcela no ideal con planta de altura mayor a 1.5 mts" {
+		var parcelaIdeal = new Parcela(ancho = 4, largo = 4, horasDeDia = 4)
+		parcelaIdeal.plantarPlanta(new Soja(anioDeObtencion = 2000, altura = 2))//p
+		var quinoa = new Quinoa(altura =1.0, anioDeObtencion = 2001, horasDeSol = 12)
+		assert.notThat(quinoa.esParcelaIdeal(parcelaIdeal))
+	}
+	
+	test "soja comun parcela ideal" {
+		var parcelaIdeal = new Parcela(ancho = 5, largo = 1, horasDeDia = 9)
+		var soja = new Soja(anioDeObtencion = 2000, altura = 1)
+		assert.that(soja.esParcelaIdeal(parcelaIdeal))
+	}
+	
+	test "soja trangenica parcela ideal" {
+		var parcelaIdeal = new Parcela(ancho = 5, largo = 1, horasDeDia = 4)
+		var trangenica = new SojaTrangenica(anioDeObtencion = 2000, altura = 2)
+		assert.that(trangenica.esParcelaIdeal(parcelaIdeal))
+	}
+	
+	test "parcela ecologica, cantidad de plantas asociadas" {	
+		assert.that(parcelaEcologica.cantidadDePlantasAsociadasEnParcela() == 2) 
+	} 
+	
+	test "parcela ecologica, porcentaje de asociacion del 50%" {	
+		assert.that(parcelaEcologica.porcentajeDeAsociacion() == 50) 
+	} 
+}
